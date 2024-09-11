@@ -9,9 +9,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
       <div className="relative flex flex-col h-screen">
         <Navbar />
-        <main >
-          {children}
-        </main>
+        <main>{children}</main>
       </div>
     </Providers>
   );
