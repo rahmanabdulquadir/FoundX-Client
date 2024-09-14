@@ -1,8 +1,7 @@
 /* eslint-disable prettier/prettier */
 
-import { Providers } from "../providers";
-
 import { Navbar } from "@/src/components/UI/navbar";
+import { Providers } from "@/src/lib/Providers";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (

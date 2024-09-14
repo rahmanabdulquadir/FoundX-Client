@@ -1,15 +1,24 @@
 "use client";
 
-import FXForm from "@/src/components/form/FXForm";
-import FXInput from "@/src/components/form/FXInput";
-import { registerUser } from "@/src/services/AuthService";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import React from "react";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import FXForm from "@/src/components/form/FXForm";
+import FXInput from "@/src/components/form/FXInput";
+import { useUserRegistration } from "@/src/hooks/auth.hook";
 
 export default function RegisterPage() {
+  const { mutate: handleUserRegistration, isPending } = useUserRegistration();
+
+  //   useEffect(() => {
+  //     if (isPending) {
+  //       // Handle Loading satate
+  //     }
+  //   }, [isPending]);
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const userData = {
       ...data,
@@ -19,12 +28,12 @@ export default function RegisterPage() {
 
     console.log("Inside form user data: ", userData);
 
-    registerUser(userData);
+    handleUserRegistration(userData);
   };
 
-  // if (isPending) {
-  //   //  handle loading state
-  // }
+  if (isPending) {
+    //  handle loading state
+  }
 
   return (
     <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center">
@@ -34,8 +43,8 @@ export default function RegisterPage() {
         <FXForm
           //! Only for development
           defaultValues={{
-            name: "Rahman Abdul Quadir",
-            email: "rahman@gmail.com",
+            name: "Mir Hussain",
+            email: "mir@gmail.com",
             mobileNumber: "01711223344",
             password: "123456",
           }}

@@ -1,8 +1,10 @@
-import envConfig from "@/src/config/envConfig";
 import axios from "axios";
 
-const axiosInstance = axios.create({
-  baseURL: envConfig.baseApi
-})
+import envConfig from "@/src/config/envConfig";
 
-export default axiosInstance
+
+const axiosInstance = axios.create({
+  baseURL: envConfig.baseApi,
+});
+
+export default axiosInstance;
