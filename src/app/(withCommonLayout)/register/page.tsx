@@ -1,13 +1,15 @@
-import FXForm from '@/src/components/form/FXForm';
-import FXInput from '@/src/components/form/FXInput';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@nextui-org/button';
-import Link from 'next/link';
-import React from 'react';
-import { FieldValues, SubmitHandler } from 'react-hook-form';
+"use client";
+
+import FXForm from "@/src/components/form/FXForm";
+import FXInput from "@/src/components/form/FXInput";
+import { registerUser } from "@/src/services/AuthService";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@nextui-org/button";
+import Link from "next/link";
+import React from "react";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 
 export default function RegisterPage() {
-
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const userData = {
       ...data,
@@ -17,7 +19,7 @@ export default function RegisterPage() {
 
     console.log("Inside form user data: ", userData);
 
-  
+    registerUser(userData);
   };
 
   // if (isPending) {
@@ -32,8 +34,8 @@ export default function RegisterPage() {
         <FXForm
           //! Only for development
           defaultValues={{
-            name: "Mir Hussain",
-            email: "mir@gmail.com",
+            name: "Rahman Abdul Quadir",
+            email: "rahman@gmail.com",
             mobileNumber: "01711223344",
             password: "123456",
           }}
