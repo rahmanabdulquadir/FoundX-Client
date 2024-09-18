@@ -14,11 +14,14 @@ import Loading from "@/src/components/UI/Loading";
 
 const page = () => {
   const { mutate: handleUserLogin, isPending, isSuccess } = useUserLogin();
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-  };
 
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    handleUserLogin(data);
+    // userLoading(true);
+  };
+  
   return (
+
     <>
       {isPending && <Loading />}
       <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
