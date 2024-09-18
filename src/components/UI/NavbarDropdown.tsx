@@ -16,7 +16,7 @@ import React from "react";
 
 const NavbarDropdown = () => {
   const router = useRouter();
-  const { setIsLoading: userLoading } = useUser();
+  const {user, setIsLoading: userLoading } = useUser();
 
   const handleRouter = (pathname: string) => {
     router.push(pathname);
@@ -30,7 +30,7 @@ const NavbarDropdown = () => {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Avatar className="cursor-pointer" name="Joe" />
+        <Avatar className="cursor-pointer" src={!user?.profilePhoto ? (user?.profilePhoto) : (user?.name) } />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem onClick={() => handleRouter("/profile")}>
