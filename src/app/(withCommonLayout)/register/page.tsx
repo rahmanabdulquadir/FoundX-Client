@@ -43,8 +43,8 @@ export default function RegisterPage() {
         <FXForm
           //! Only for development
           defaultValues={{
-            name: "Mir Hussain",
-            email: "mir@gmail.com",
+            name: "Rahman Abdul Quadir",
+            email: "rahman@gmail.com",
             mobileNumber: "01711223344",
             password: "123456",
           }}
