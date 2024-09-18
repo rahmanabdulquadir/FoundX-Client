@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@/src/context/user.provider";
 import { logout } from "@/src/services/AuthService";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
@@ -15,9 +16,15 @@ import React from "react";
 
 const NavbarDropdown = () => {
   const router = useRouter();
+  const { setIsLoading: userLoading } = useUser();
 
   const handleRouter = (pathname: string) => {
     router.push(pathname);
+  };
+
+  const handleLogout = () => {
+    logout();
+    userLoading(true);
   };
 
   return (
@@ -29,9 +36,18 @@ const NavbarDropdown = () => {
         <DropdownItem onClick={() => handleRouter("/profile")}>
           Profile
         </DropdownItem>
-        <DropdownItem onClick={() => handleRouter("/profile/settings")} >Setting</DropdownItem>
-        <DropdownItem onClick={() => handleRouter("/profile/create-post")} >Create-Post</DropdownItem>
-        <DropdownItem onClick={() => logout()} key="delete" className="text-danger" color="danger">
+        <DropdownItem onClick={() => handleRouter("/profile/settings")}>
+          Setting
+        </DropdownItem>
+        <DropdownItem onClick={() => handleRouter("/profile/create-post")}>
+          Create-Post
+        </DropdownItem>
+        <DropdownItem
+          key="delete"
+          className="text-danger"
+          color="danger"
+          onClick={() => handleLogout()}
+        >
           Logout
         </DropdownItem>
       </DropdownMenu>

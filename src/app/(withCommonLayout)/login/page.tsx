@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-"use client"
+"use client";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import React, { useEffect } from "react";
@@ -12,29 +12,31 @@ import { loginValidationSchema } from "@/src/schemas/login.schema";
 import { useUserLogin } from "@/src/hooks/auth.hook";
 import Loading from "@/src/components/UI/Loading";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useUser } from "@/src/context/user.provider";
 
 const page = () => {
   const { mutate: handleUserLogin, isPending, isSuccess } = useUserLogin();
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const redirect = searchParams.get('redirect')
+  const router = useRouter();
+  const { setIsLoading: userLoading } = useUser();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    handleUserLogin(data);
+    userLoading(true);
+  };
 
   useEffect(() => {
-    if(!isPending && isSuccess){
-      if(redirect){
-        router.push(redirect)
+    if (!isPending && isSuccess) {
+      if (redirect) {
+        router.push(redirect);
+      }else{
+        router.push('/')
       }
     }
   }, [isSuccess, isPending]);
 
-  console.log(redirect)
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    handleUserLogin(data);
-    // userLoading(true);
-  };
-
   return (
-
     <>
       {isPending && <Loading />}
       <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
