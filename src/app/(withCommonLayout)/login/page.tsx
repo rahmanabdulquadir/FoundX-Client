@@ -2,7 +2,7 @@
 "use client"
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -11,15 +11,28 @@ import FXInput from "@/src/components/form/FXInput";
 import { loginValidationSchema } from "@/src/schemas/login.schema";
 import { useUserLogin } from "@/src/hooks/auth.hook";
 import Loading from "@/src/components/UI/Loading";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const page = () => {
   const { mutate: handleUserLogin, isPending, isSuccess } = useUserLogin();
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirect = searchParams.get('redirect')
 
+  useEffect(() => {
+    if(!isPending && isSuccess){
+      if(redirect){
+        router.push(redirect)
+      }
+    }
+  }, [isSuccess, isPending]);
+
+  console.log(redirect)
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     handleUserLogin(data);
     // userLoading(true);
   };
-  
+
   return (
 
     <>
