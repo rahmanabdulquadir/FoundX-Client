@@ -1,5 +1,6 @@
 "use client";
 
+import { protectedRoutes } from "@/src/constant";
 import { useUser } from "@/src/context/user.provider";
 import { logout } from "@/src/services/AuthService";
 import { Avatar } from "@nextui-org/avatar";
@@ -11,21 +12,27 @@ import {
   DropdownTrigger,
 } from "@nextui-org/dropdown";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 const NavbarDropdown = () => {
   const router = useRouter();
-  const {user, setIsLoading: userLoading } = useUser();
-
-  const handleRouter = (pathname: string) => {
-    router.push(pathname);
-  };
+  const pathname = usePathname();
+  const { user, setIsLoading: userLoading } = useUser();
 
   const handleLogout = () => {
     logout();
     userLoading(true);
+
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
+    }
   };
+
+  const handleNavigation = (pathname: string) => {
+    router.push(pathname);
+  };
+
 
   return (
     <Dropdown>
@@ -33,13 +40,13 @@ const NavbarDropdown = () => {
         <Avatar className="cursor-pointer" src={!user?.profilePhoto ? (user?.profilePhoto) : (user?.name) } />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem onClick={() => handleRouter("/profile")}>
+        <DropdownItem onClick={() => handleNavigation("/profile")}>
           Profile
         </DropdownItem>
-        <DropdownItem onClick={() => handleRouter("/profile/settings")}>
+        <DropdownItem onClick={() => handleNavigation("/profile/settings")}>
           Setting
         </DropdownItem>
-        <DropdownItem onClick={() => handleRouter("/profile/create-post")}>
+        <DropdownItem onClick={() => handleNavigation("/profile/create-post")}>
           Create-Post
         </DropdownItem>
         <DropdownItem
