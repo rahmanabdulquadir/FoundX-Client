@@ -18,10 +18,11 @@ import FXSelect from "@/src/components/form/FXSelect";
 import FXTextarea from "@/src/components/form/FXTextArea";
 import { AddIcon, TrashIcon } from "@/src/assets/icons";
 import Loading from "@/src/components/UI/Loading";
-import {allDistict} from "@bangladeshi/bangladesh-address"
+import { allDistict } from "@bangladeshi/bangladesh-address";
 import { useCreatePost } from "@/src/hooks/post.hook";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/src/context/user.provider";
+import { useGetCategories } from "@/src/hooks/categories.hook";
 
 const cityOptions = allDistict()
   .sort()
@@ -51,6 +52,8 @@ export default function CreatePost() {
     isLoading: categoryLoading,
     isSuccess: categorySuccess,
   } = useGetCategories();
+
+  console.log(categoriesData);
 
   let categoryOption: { key: string; label: string }[] = [];
 
