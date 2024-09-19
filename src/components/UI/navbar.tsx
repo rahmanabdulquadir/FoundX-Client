@@ -18,6 +18,7 @@ import { ThemeSwitch } from "@/src/components/UI/theme-switch";
 import { Logo } from "@/src/components/icons";
 import NavbarDropdown from "./NavbarDropdown";
 import { useUser } from "@/src/context/user.provider";
+import { Button } from "@nextui-org/button";
 
 export const Navbar = () => {
   const { user, isLoading } = useUser();
@@ -62,7 +63,9 @@ export const Navbar = () => {
           </NavbarItem>
         ) : (
           <NavbarItem className="hidden sm:flex gap-2">
-            <Link href="/login">Login</Link>
+            <Button>
+              <Link href="/login">Login</Link>
+            </Button>
           </NavbarItem>
         )}
       </NavbarContent>
@@ -81,8 +84,8 @@ export const Navbar = () => {
                   index === 2
                     ? "primary"
                     : index === siteConfig.navMenuItems.length - 1
-                    ? "danger"
-                    : "foreground"
+                      ? "danger"
+                      : "foreground"
                 }
                 href="#"
                 size="lg"
