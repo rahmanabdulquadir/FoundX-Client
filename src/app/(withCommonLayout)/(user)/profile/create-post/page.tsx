@@ -12,6 +12,7 @@ import {
 
 import FXInput from "@/src/components/form/FXInput";
 import { Divider } from "@nextui-org/divider";
+import dateToISO from "@/src/utils/dateToISO";
 
 const CreatePost = () => {
   const methods = useForm();
@@ -24,7 +25,8 @@ const CreatePost = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const postData = {
       ...data,
-      questions: data?.questions?.map((que:{value: string}) => que.value)
+      questions: data?.questions?.map((que:{value: string}) => que.value),
+      dateFound: dateToISO(data.dateFound)
     }
 
      console.log(postData)
