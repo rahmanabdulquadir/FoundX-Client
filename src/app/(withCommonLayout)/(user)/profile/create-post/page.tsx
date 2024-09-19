@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@nextui-org/button";
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import {
   FieldValues,
   FormProvider,
@@ -16,28 +16,104 @@ import dateToISO from "@/src/utils/dateToISO";
 import FXDatePicker from "@/src/components/form/FXDatePicker";
 import FXSelect from "@/src/components/form/FXSelect";
 import FXTextarea from "@/src/components/form/FXTextArea";
+import { AddIcon, TrashIcon } from "@/src/assets/icons";
+import Loading from "@/src/components/UI/Loading";
+import {allDistict} from "@bangladeshi/bangladesh-address"
+import { useCreatePost } from "@/src/hooks/post.hook";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/src/context/user.provider";
 
-const CreatePost = () => {
+const cityOptions = allDistict()
+  .sort()
+  .map((city: string) => {
+    return {
+      key: city,
+      label: city,
+    };
+  });
+
+export default function CreatePost() {
+  const [imageFiles, setImageFiles] = useState<File[] | []>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
+
+  const router = useRouter();
+
+  const {
+    mutate: handleCreatePost,
+    isPending: createPostPending,
+    isSuccess,
+  } = useCreatePost();
+
+  const { user } = useUser();
+
+  const {
+    data: categoriesData,
+    isLoading: categoryLoading,
+    isSuccess: categorySuccess,
+  } = useGetCategories();
+
+  let categoryOption: { key: string; label: string }[] = [];
+
+  if (categoriesData?.data && !categoryLoading) {
+    categoryOption = categoriesData.data
+      .sort()
+      .map((category: { _id: string; name: string }) => ({
+        key: category._id,
+        label: category.name,
+      }));
+  }
+
   const methods = useForm();
+
   const { control, handleSubmit } = methods;
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "questions",
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const formData = new FormData();
+
     const postData = {
       ...data,
-      questions: data?.questions?.map((que:{value: string}) => que.value),
-      dateFound: dateToISO(data.dateFound)
+      questions: data.questions.map((que: { value: string }) => que.value),
+      dateFound: dateToISO(data.dateFound),
+      user: user!._id,
+    };
+
+    formData.append("data", JSON.stringify(postData));
+
+    for (let image of imageFiles) {
+      formData.append("itemImages", image);
     }
 
-     console.log(postData)
+    handleCreatePost(formData);
   };
 
   const handleFieldAppend = () => {
     append({ name: "questions" });
   };
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0];
+
+    setImageFiles((prev) => [...prev, file]);
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setImagePreviews((prev) => [...prev, reader.result as string]);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  if (!createPostPending && isSuccess) {
+    router.push("/");
+  }
 
   return (
     <>
@@ -148,5 +224,3 @@ const CreatePost = () => {
     </>
   );
 }
-
-export default CreatePost;
