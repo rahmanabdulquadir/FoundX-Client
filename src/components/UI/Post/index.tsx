@@ -1,13 +1,17 @@
-"use client";
 
-import { useUser } from "@/src/context/user.provider";
-import { IPost, IUser } from "@/src/types";
+"use client";
 import { Avatar } from "@nextui-org/avatar";
+import { format } from "date-fns";
 import { Calendar, MapPin } from "lucide-react";
 import Link from "next/link";
-import ImageGallery from "./ImageGallery";
+
+import { IPost, IUser } from "@/src/types";
+
 import { Button } from "@nextui-org/button";
-import { format } from "date-fns";
+import ImageGallery from "./ImageGallery";
+import ClaimRequestModal from "../../modals/ClaimRequestModal";
+import { useUser } from "@/src/context/user.provider";
+import AuthenticationModal from "../../modals/AuthenticationModal";
 
 interface IProps {
   post: IPost;

@@ -1,6 +1,9 @@
+"use client"
+
 import Link from "next/link";
-import FXModal from "./FXModal";
 import { Button } from "@nextui-org/button";
+
+import FXModal from "./FXModal";
 
 interface IProps {
   id: string;
@@ -9,9 +12,9 @@ interface IProps {
 const AuthenticationModal = ({ id }: IProps) => {
   return (
     <FXModal
-      title="Authentication"
-      buttonText="Claim Item"
       buttonClassName="flex-1"
+      buttonText="Claim Item"
+      title="Authentication"
     >
       <div>
         You are not currently logged in. Please login first to continue.
