@@ -1,3 +1,10 @@
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import FXModal from "./FXModal";
+import FXForm from "../form/FXForm";
+import FXInput from "../form/FXInput";
+import FXTextarea from "../form/FXTextArea";
+import { Button } from "@nextui-org/button";
+
 interface IProps {
   id: string;
   questions: string[];

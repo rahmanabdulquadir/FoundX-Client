@@ -1,3 +1,7 @@
+import Link from "next/link";
+import FXModal from "./FXModal";
+import { Button } from "@nextui-org/button";
+
 interface IProps {
   id: string;
 }
