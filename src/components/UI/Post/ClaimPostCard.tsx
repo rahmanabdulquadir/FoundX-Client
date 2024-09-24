@@ -1,3 +1,10 @@
+import { IClaimant, IReceivedClaimRequest } from "@/src/types";
+import { format } from "date-fns";
+import { Calendar, Eye, MapPin } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import ImageGallery from "./ImageGallery";
+import { Avatar } from "@nextui-org/avatar";
 
 type TProps = {
   post: IReceivedClaimRequest;

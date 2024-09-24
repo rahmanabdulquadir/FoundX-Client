@@ -1,3 +1,6 @@
+import ClaimPostCard from "@/src/components/UI/Post/ClaimPostCard";
+import { IReceivedClaimRequest } from "@/src/types";
+
 const ReceivedClaimRequestsPage = () => {
   const { data } = useGetReceivedClaimRequest();
 
