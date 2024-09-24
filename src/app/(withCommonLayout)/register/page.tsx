@@ -9,9 +9,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FXForm from "@/src/components/form/FXForm";
 import FXInput from "@/src/components/form/FXInput";
 import { useUserRegistration } from "@/src/hooks/auth.hook";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const { mutate: handleUserRegistration, isPending } = useUserRegistration();
+  const router = useRouter();
 
   //   useEffect(() => {
   //     if (isPending) {
@@ -29,6 +31,7 @@ export default function RegisterPage() {
     console.log("Inside form user data: ", userData);
 
     handleUserRegistration(userData);
+    router.push("/");
   };
 
   if (isPending) {

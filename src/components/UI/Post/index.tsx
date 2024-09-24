@@ -81,7 +81,7 @@ export default function Post({ post }: IProps) {
           {email !== loggedInUser?.email && (
             <div className="w-[1px] bg-default-200" />
           )}
-          <Button variant="light" className="flex-1">
+          <Button className="flex-1" variant="light">
             Share
           </Button>
         </div>

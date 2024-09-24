@@ -1,3 +1,5 @@
+"use client";
+
 import { IClaimant, IReceivedClaimRequest } from "@/src/types";
 import { format } from "date-fns";
 import { Calendar, Eye, MapPin } from "lucide-react";
