@@ -1,3 +1,5 @@
+"use client"
+
 import { Input } from '@nextui-org/input';
 
 import { SearchIcon } from '../../icons';
@@ -6,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { ISearchResult } from '@/src/types';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useSearchItems } from '@/src/hooks/search.hook';
 
 export default function Landing() {
   const { register, handleSubmit, watch } = useForm();
