@@ -9,6 +9,7 @@ import { ISearchResult } from '@/src/types';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useSearchItems } from '@/src/hooks/search.hook';
+import useDebounce from '@/src/hooks/debounce.hook';
 
 export default function Landing() {
   const { register, handleSubmit, watch } = useForm();
