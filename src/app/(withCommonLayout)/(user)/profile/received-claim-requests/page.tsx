@@ -1,3 +1,5 @@
+"use client";
+
 import ClaimPostCard from "@/src/components/UI/Post/ClaimPostCard";
 import { useGetReceivedClaimRequest } from "@/src/hooks/claimRequest.hook";
 import { IReceivedClaimRequest } from "@/src/types";
@@ -6,11 +8,13 @@ const ReceivedClaimRequestsPage = () => {
   const { data } = useGetReceivedClaimRequest();
 
   const posts = data?.data || [];
+  // console.log(posts)
 
   return (
     <>
       {posts?.length ? (
-        posts.map((post: IReceivedClaimRequest, index: number) => (
+        posts?.map((post: IReceivedClaimRequest, index: number) => (
+          // <h1 key={index}>A post</h1>
           <ClaimPostCard key={index} post={post} />
         ))
       ) : (

@@ -1,12 +1,12 @@
 "use client";
-
-import { IClaimant, IReceivedClaimRequest } from "@/src/types";
 import { format } from "date-fns";
 import { Calendar, Eye, MapPin } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import ImageGallery from "./ImageGallery";
 import { Avatar } from "@nextui-org/avatar";
+import { useState } from "react";
+
+import { IClaimant, IReceivedClaimRequest } from "@/src/types";
+import ImageGallery from "./ImageGallery";
 
 type TProps = {
   post: IReceivedClaimRequest;
@@ -24,6 +24,8 @@ export default function ClaimPostCard({ post }: TProps) {
     images,
   } = post || {};
 
+  console.log(post)
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [answers, setAnswers] = useState({});
 
@@ -31,6 +33,8 @@ export default function ClaimPostCard({ post }: TProps) {
     setAnswers(data);
     setIsModalOpen(true);
   };
+
+  // const foundON = format(new Date(dateFound), "dd MMM, yyyy")
 
   return (
     <div className="mb-2 rounded-md bg-default-100 p-4">
@@ -43,7 +47,8 @@ export default function ClaimPostCard({ post }: TProps) {
               </Link>
               <p className="flex items-center gap-1 text-xs">
                 Found on: <Calendar width={14} />
-                {format(new Date(dateFound), "dd MMM, yyyy")}
+                
+                {/* {format(new Date(dateFound), "dd MMM, yyyy")} */}
               </p>
             </div>
             <div>
@@ -59,7 +64,7 @@ export default function ClaimPostCard({ post }: TProps) {
         <ImageGallery images={images} />
       </div>
 
-      <div>
+      {/* <div>
         {claimRequests?.map((claimRequest) => {
           const { claimant, answers, description: comment, _id } = claimRequest;
           const { profilePhoto, name } = claimant as IClaimant;
@@ -83,7 +88,7 @@ export default function ClaimPostCard({ post }: TProps) {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </div>
   );
 }
